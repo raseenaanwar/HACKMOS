@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AssetX Launchpad</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome -->
+
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Body and background */
+    body {
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .navbar {
+  border: none; /* Remove any border */
+}
+body {
+  overflow-x: hidden; /* Already present, ensure it is applied */
+}
+  /* Button styling */
+  #connectWalletBtn {
+      background-color: #d5006d; /* Purple-pink color */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #connectWalletBtn:hover {
+      background-color: #a0004e; /* Darker shade on hover */
+    }
+
+.header-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 100px; /* Set a fixed height, adjust as needed */
+  align-items: center;
+  background-color: #000;
+  z-index: 1000;
+  padding: 0; /* Reduce padding to move the line closer */
+  border-bottom: 1px solid #444; /* Thinner line */
+
+  margin-bottom: 0; /* Ensure no margin is pushing it down */
+}
+
+
+
+.content {
+  padding-top: 60px; /* Adjust to header height */
+  padding-bottom: 100px; /* Extra padding to avoid content being cut off */
+  min-height: 100vh; /* Ensure it covers the full height of the screen */
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+
+    /* Logo styling */
+    .logo-img {
+      max-width: 150px;
+      height: auto;
+    }
+
+    /* Navbar links */
+    .navbar-nav .nav-item {
+      margin-right: 20px;
+    }
+
+    /* Hero section under the header */
+    .hero-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 50px 0;
+    }
+
+    /* Slogan styling */
+    .tagline {
+      font-size: 36px;
+      font-weight: bold;
+      color: #ff69b4;
+      text-shadow: 2px 2px 5px rgba(138, 43, 226, 0.8);
+    }
+
+    /* Image styling for the hero section */
+    .hero-img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Footer styling */
+    .footer {
+      background-color: #444;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+    #user-info {
+      display: none;
+      align-items: center;
+    }
+
+    #user-info img {
+      border-radius: 50%;
+      width: 40px;
+      margin-right: 10px;
+    }
+    .user-icon {
+    display: inline-flex; /* Use flexbox for alignment */
+    align-items: center; /* Center icon vertically */
+    justify-content: center; /* Center icon horizontally */
+    width: 40px; /* Width for the rounded container */
+    height: 40px; /* Height for the rounded container */
+    border-radius: 50%; /* Make it round */
+    background-color: #ff69b4; /* Background color to match the button */
+    color: #fff; /* Icon color */
+    margin-left: 10px; /* Spacing from the previous nav item */
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Header with fixed position -->
+  <header class="header-container">
+    <div class="d-flex align-items-center">
+      <img src="images/assetx-logo1.png" alt="AssetX Logo" class="img-fluid logo-img">
+    </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#dashboard" onclick="navigate('dashboard')">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#tokenize" onclick="navigate('tokenize')">Tokenize Asset</a>
+          </li>
+          <li class="nav-item">
+     
+     
+     
+            <a class="nav-link" href="#assets" onclick="navigate('assets')">My Assets</a>
+          </li>
+          <button id="connectWalletBtn">Connect  Wallet</button>
+          <li class="nav-item" id="userIcon" style="display: none;">
+            <span class="user-icon">
+                <i class="fas fa-user"></i>
+            </span>
+        </li>
+        
+        </ul>
+      </div>
+    </nav>
+    <div id="user-info">
+      <img src="https://via.placeholder.com/40" alt="User">
+      <span id="username" style="color: white;"></span>
+    </div>
+  </header>
+
+  <!-- Main content that accounts for fixed header height -->
+  <div class="content">
+    <!-- Hero section for slogan and image -->
+    <section class="hero-section container mt-5">
+      <div class="col-md-6">
+        <h1 class="tagline">Empowering Your Assets for the Future</h1>
+      </div>
+      <div class="col-md-6 text-right">
+        <!-- <img src="images/image1.png" alt="Your Image" class="img-fluid hero-img"> -->
+      </div>
+    </section>
+
+    <!-- Dynamic content (e.g., Dashboard, etc.) -->
+    <div class="container mt-1" id="main-content">
+      <!-- Placeholder for dynamic content -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <span>© 2024 AssetX. All Rights Reserved.</span>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <script src="js/app.js"></script>
+</body>
+</html>
