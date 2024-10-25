@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Items Section -->
     <h2 class="mt-4 mb-3">Your Assets</h2>
-    <div class='container'>
+   
     <div class="row flex-nowrap overflow-auto" id="assetRow">
         <!-- Card 1 -->
         
@@ -158,6 +158,45 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
     
+</div>
+<div class="container my-5">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemModal">
+        Add Item
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addItemForm">
+                        <div class="form-group">
+                            <label for="itemName">Item Name</label>
+                            <input type="text" class="form-control" id="itemName" placeholder="Enter item name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemDescription">Description</label>
+                            <textarea class="form-control" id="itemDescription" rows="3" placeholder="Enter item description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemImage">Upload Image</label>
+                            <input type="file" class="form-control-file" id="itemImage" accept="image/*" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" form="addItemForm" class="btn btn-primary">Add Asset</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
