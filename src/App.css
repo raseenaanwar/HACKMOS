@@ -1,38 +1,88 @@
+/* Body and background */
 .App {
-  text-align: center;
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+  align-items: center;
+  background-color: #000;
+  z-index: 1000;
+  padding: 0;
+  border-bottom: 1px solid #444;
+}
+
+#connectWalletBtn {
+  background-color: #d5006d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#connectWalletBtn:hover {
+  background-color: #a0004e;
+}
+
+.content {
+  padding-top: 60px;
+  padding-bottom: 100px;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.logo-img {
+  max-width: 150px;
+  height: auto;
+}
+
+.navbar-nav .nav-item {
+  margin-right: 20px;
+}
+
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px 0;
+}
+
+.tagline {
+  font-size: 36px;
+  font-weight: bold;
+  color: #ff69b4;
+  text-shadow: 2px 2px 5px rgba(138, 43, 226, 0.8);
+}
+
+.footer {
+  background-color: #444;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.user-icon {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ff69b4;
+  color: #fff;
+  margin-left: 10px;
 }
