@@ -27,7 +27,15 @@ function App() {
   const onAddItem = (newItem: Item) => {
     setItems((prevItems) => [...prevItems, newItem]); // Add the new item to the list
   };
-
+  useEffect(() => {
+    // Hide horizontal overflow
+    document.body.style.overflowX = 'hidden';
+    
+    return () => {
+      // Optional cleanup to remove the style if component unmounts
+      document.body.style.overflowX = '';
+    };
+  }, []);
   useEffect(() => {
     navigate("home");
   }, []);
@@ -60,7 +68,7 @@ function App() {
     }
   };
 
-  const navigate = (page: "home" | "tokenize" | "addItem" | "assets") => {
+  const navigate = (page: "home" | "addItem" | "assets") => {
     setPage(page);
   };
 
@@ -68,34 +76,7 @@ function App() {
     switch (page) {
       case "home":
         return <HomeComponent />;
-        // return (
-        //   <div className="card">
-        //     <div className="card-header">Home</div>
-        //     <div className="card-body">
-        //       <h5 className="card-title">Welcome to RWA Launchpad</h5>
-        //       <p className="card-text">
-        //         Tokenize your real-world assets such as Real Estate, Art, and
-        //         Commodities.
-        //       </p>
-        //       <button className="btn btn-primary" onClick={() => navigate("tokenize")}>
-        //         Tokenize Now
-        //       </button>
-        //     </div>
-        //   </div>
-        // );
-
-      // case "tokenize":
-      //   return (
-      //     <div className="card">
-      //       <div className="card-header">Tokenize Your Asset</div>
-      //       <div className="card-body">
-      //         {/* Your existing Tokenize form goes here */}
-      //         <form>
-      //           {/* Tokenize form fields */}
-      //         </form>
-      //       </div>
-      //     </div>
-      //   );
+      
 
       case "addItem":
         return (
@@ -109,7 +90,8 @@ function App() {
 
         case "assets":
   return (
-    <div style={{ width: "100vw", padding: "0" }}>
+    <div style={{ width: "100vw", padding: "0" ,height: '100vh'}}>
+      {/* <div style={{ width: '100%', height: '100vh' }}> */}
       <h2 className="mt-4 mb-3">Your Assets</h2>
       <div className="row flex-nowrap overflow-auto">
         {Array.from({ length: 4 }, (_, index) => {
@@ -266,15 +248,7 @@ function App() {
                 Home
               </a>
             </li>
-            {/* <li className="nav-item">
-              <a
-                className="nav-link"
-                href="#tokenize"
-                onClick={() => navigate("tokenize")}
-              >
-                Tokenize Asset
-              </a>
-            </li> */}
+            
             <li className="nav-item">
               <a
                 className="nav-link"
