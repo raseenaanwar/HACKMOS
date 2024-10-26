@@ -86,3 +86,18 @@
   color: #fff;
   margin-left: 10px;
 }
+
+.row {
+  width: 100%;
+  margin: 0; /* Removes any default margin */
+}
+
+.col-lg-3, .col-md-4, .col-sm-6 {
+  padding: 0 5px; /* Small padding for spacing */
+}
+
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
