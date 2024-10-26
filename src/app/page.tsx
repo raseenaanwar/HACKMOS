@@ -36,7 +36,27 @@ const App: React.FC = () => {
     "home"
   )
 
-  const [items, setItems] = useState<Item[]>([]) // State to hold the items
+  const [items, setItems] = useState<Item[]>( [
+    {
+      category: "Real Estate",
+      id: "1",
+      name: "Oceanview Apartment",
+      description: "A beautiful oceanfront apartment with a breathtaking view.",
+      image: "https://upload.wikimedia.org/wikipedia/en/thumb/9/93/Burj_Khalifa.jpg/1200px-Burj_Khalifa.jpg",
+      type: "token",
+      tokenBalance: 10,
+      expiry: 30 // Expiry in days
+    },
+    {
+      category: "Artwork",
+      id: "2",
+      name: "Modern Sculpture",
+      description: "An abstract sculpture representing unity and balance.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/640px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+      type: "nft",
+      // Optional fields left out to demonstrate flexibility
+    }
+  ]) // State to hold the items
 
   const onAddItem = (newItem: Item) => {
     setItems((prevItems) => [...prevItems, newItem]) // Add the new item to the list
@@ -290,99 +310,91 @@ const App: React.FC = () => {
           </div>
         )
 
-      case "assets":
-        return (
-          <div style={{ width: "100vw", padding: "0", height: "100vh" }}>
-            <h2 className="mt-4 mb-3">Your Assets</h2>
-            <div className="row flex-nowrap overflow-auto">
-              {items.map((item, index) => (
-                <div
-                  className="col-lg-3 col-md-4 mb-4"
-                  key={item.id || index}
-                  style={{ marginRight: "1px" }}
-                >
+        case "assets":
+          return (
+            <div style={{ width: "100vw", padding: "0", height: "100vh" }}>
+              <h2 className="mt-4 mb-3">Your Assets</h2>
+              <div className="row flex-nowrap overflow-auto">
+                {items.map((item, index) => (
                   <div
-                    className="card"
-                    style={{
-                      transition: "box-shadow 0.3s ease, transform 0.3s ease",
-                      boxShadow: "0 8px 16px rgba(128, 0, 128, 0.5)",
-                      borderRadius: "15px",
-                      overflow: "hidden",
-                      cursor: "pointer",
-                      width: "300px",
-                      height: "400px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow =
-                        "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"
-                      e.currentTarget.style.transform = "scale(1.02)"
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow =
-                        "0 8px 16px rgba(128, 0, 128, 0.5)"
-                      e.currentTarget.style.transform = "scale(1)"
-                    }}
-                    onMouseDown={(e) => {
-                      e.currentTarget.style.boxShadow =
-                        "0 4px 8px rgba(0, 128, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.7)"
-                      e.currentTarget.style.transform = "scale(0.98)"
-                    }}
-                    onMouseUp={(e) => {
-                      e.currentTarget.style.boxShadow =
-                        "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"
-                      e.currentTarget.style.transform = "scale(1.02)"
-                    }}
+                    className="col-lg-3 col-md-4 mb-4"
+                    key={item.id || index}
+                    style={{ marginRight: "1px" }}
                   >
-                    <img
-                      className="card-img-top"
-                      src={item.image || "https://via.placeholder.com/350x200"}
-                      alt={item.name}
-                      style={{
-                        borderTopLeftRadius: "15px",
-                        borderTopRightRadius: "15px",
-                        height: "60%",
-                      }}
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{item.name}</h5>
-                      <p className="card-text">{item.description}</p>
-                      <p className="card-text">
-                        <small
-                          className="text-muted"
-                          style={{ color: "green" }}
-                        >
-                          Asset ID: {item.id}
-                        </small>
-                      </p>
-                    </div>
                     <div
-                      className="d-flex justify-content-between align-items-center mt-auto"
-                      style={{ padding: "0 1rem 1rem" }}
+                      className="card"
+                      style={{
+                        transition: "box-shadow 0.3s ease, transform 0.3s ease",
+                        boxShadow: "0 8px 16px rgba(128, 0, 128, 0.5)",
+                        borderRadius: "15px",
+                        overflow: "hidden",
+                        cursor: "pointer",
+                        width: "300px",
+                        height: "450px",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow =
+                          "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"
+                        e.currentTarget.style.transform = "scale(1.02)"
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow =
+                          "0 8px 16px rgba(128, 0, 128, 0.5)"
+                        e.currentTarget.style.transform = "scale(1)"
+                      }}
+                      onMouseDown={(e) => {
+                        e.currentTarget.style.boxShadow =
+                          "0 4px 8px rgba(0, 128, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.7)"
+                        e.currentTarget.style.transform = "scale(0.98)"
+                      }}
+                      onMouseUp={(e) => {
+                        e.currentTarget.style.boxShadow =
+                          "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"
+                        e.currentTarget.style.transform = "scale(1.02)"
+                      }}
                     >
-                      {item.type === "nft" ? (
-                        <button className="btn btn-primary">Tokenize</button>
-                      ) : (
-                        <button className="btn btn-primary">Remint</button>
-                      )}
+                      <img src={item.image} alt={item.name} className="card-img-top" style={{ height: "200px", objectFit: "cover" }} />
+                      <div className="card-body">
+                        <h5 className="card-title">{item.name}</h5>
+                        <p className="card-text">{item.description}</p>
+                        {item.tokenBalance !== undefined && (
+                          <p className="card-text">
+                            <strong>Token Balance:</strong> {item.tokenBalance}
+                          </p>
+                        )}
+                        {item.expiry !== undefined && (
+                          <p className="card-text">
+                            <strong>Expiry:</strong> {item.expiry} days
+                          </p>
+                        )}
+                        {item.type === "token" ? (
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={RemintNFT}
+                          >
+                            Remint
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={TokenizeNFT}
+                          >
+                            Tokenize
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-            <div className="text-center">
-              <button
-                type="button"
-                className="btn custom-gradient-btn mt-4"
-                onClick={() => navigate("addItem")}
-              >
-                Add Item
-              </button>
-            </div>
-          </div>
-        )
+          )
+        
       default:
         return null
     }
@@ -444,15 +456,7 @@ const App: React.FC = () => {
                   Home
                 </a>
               </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="#tokenize"
-                  onClick={() => navigate("tokenize")}
-                >
-                  Tokenize Asset
-                </a>
-              </li>
+              
               <li className="nav-item">
                 <a
                   className="nav-link"
