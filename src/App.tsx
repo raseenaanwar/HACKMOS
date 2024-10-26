@@ -84,18 +84,18 @@ function App() {
         //   </div>
         // );
 
-      case "tokenize":
-        return (
-          <div className="card">
-            <div className="card-header">Tokenize Your Asset</div>
-            <div className="card-body">
-              {/* Your existing Tokenize form goes here */}
-              <form>
-                {/* Tokenize form fields */}
-              </form>
-            </div>
-          </div>
-        );
+      // case "tokenize":
+      //   return (
+      //     <div className="card">
+      //       <div className="card-header">Tokenize Your Asset</div>
+      //       <div className="card-body">
+      //         {/* Your existing Tokenize form goes here */}
+      //         <form>
+      //           {/* Tokenize form fields */}
+      //         </form>
+      //       </div>
+      //     </div>
+      //   );
 
       case "addItem":
         return (
@@ -108,98 +108,103 @@ function App() {
         );
 
         case "assets":
+  return (
+    <div style={{ width: "100vw", padding: "0" }}>
+      <h2 className="mt-4 mb-3">Your Assets</h2>
+      <div className="row flex-nowrap overflow-auto">
+        {Array.from({ length: 4 }, (_, index) => {
+          const isTokenized = index % 2 === 0; // Example condition: Even index = tokenized, Odd index = not tokenized
+          const daysLeft = isTokenized ? 10 : 0; // Example days left if tokenized
+          const tokensLeft = isTokenized ? 5 : 0; // Number of tokens left if tokenized
+
           return (
-            <div style={{ width: "100vw", padding: "0" }}>
-              <h2 className="mt-4 mb-3">Your Assets</h2>
-              <div className="row flex-nowrap overflow-auto">
-                {Array.from({ length: 4 }, (_, index) => {
-                  const isTokenized = index % 2 === 0; // Example condition: Even index = tokenized, Odd index = not tokenized
-                  const daysLeft = isTokenized ? 10 : 0; // Example days left if tokenized
-        
-                  return (
-                    <div className="col-lg-3 col-md-4 mb-4" key={index} style={{ marginRight: "1px" }}>
-                      <div
-                        className="card"
-                        style={{
-                          transition: "box-shadow 0.3s ease, transform 0.3s ease",
-                          boxShadow: "0 8px 16px rgba(128, 0, 128, 0.5)", // Default shadow
-                          borderRadius: "15px", // Rounded corners
-                          overflow: "hidden", // Ensure rounded corners are applied to the content
-                          cursor: "pointer",
-                          width: "300px", // Increased width
-                          height: "400px", // Increased height
-                          display: "flex", // Flexbox for card layout
-                          flexDirection: "column", // Arrange children in a column
-                          justifyContent: "space-between", // Space out children
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.boxShadow =
-                            "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"; // Shadow on hover
-                          e.currentTarget.style.transform = "scale(1.02)"; // Slight scale on hover
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.boxShadow =
-                            "0 8px 16px rgba(128, 0, 128, 0.5)"; // Reset shadow
-                          e.currentTarget.style.transform = "scale(1)"; // Reset scale
-                        }}
-                        onMouseDown={(e) => {
-                          e.currentTarget.style.boxShadow =
-                            "0 4px 8px rgba(0, 128, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.7)"; // Shadow when clicked
-                          e.currentTarget.style.transform = "scale(0.98)"; // Scale down on click
-                        }}
-                        onMouseUp={(e) => {
-                          e.currentTarget.style.boxShadow =
-                            "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"; // Shadow on hover after click
-                          e.currentTarget.style.transform = "scale(1.02)"; // Scale up back
-                        }}
-                      >
-                        <img
-                          className="card-img-top"
-                          src="https://via.placeholder.com/350x200"
-                          alt={`Asset ${index + 1}`}
-                          style={{ borderTopLeftRadius: "15px", borderTopRightRadius: "15px" }} // Rounded corners for the image
-                        />
-                        <div className="card-body">
-                          <h5 className="card-title">Asset {index + 1}</h5>
-                          <p className="card-text">
-                            This is a brief description of Asset {index + 1}. It's a unique digital asset.
-                          </p>
-                          <p className="card-text">
-                            <small className="text-muted" style={{ color: isTokenized ? 'green' : 'red' }}>
-                              Status: {isTokenized ? 'Tokenized' : 'Not Tokenized'}
-                            </small>
-                          </p>
-                          {isTokenized && (
-                            <p className="card-text" style={{ color: 'orange' }}>
-                              <small>Number of Days Left: {daysLeft}</small>
-                            </p>
-                          )}
-                        </div>
-                        <div className="d-flex justify-content-between align-items-center mt-auto" style={{ padding: "0 1rem 1rem" }}>
-                          {isTokenized ? (
-                            <button className="btn btn-primary">Mint</button>
-                          ) : (
-                            <button className="btn btn-secondary">Tokenize</button>
-                          )}
-                          <button className="btn btn-outline-info">View Details</button> {/* Optional additional button */}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="text-center"> {/* Centering the button */}
-                <button
-                  type="button"
-                  className="btn custom-gradient-btn mt-4" // Custom class for gradient
-                  onClick={() => navigate("addItem")}
-                >
-                  Add Item
-                </button>
+            <div className="col-lg-3 col-md-4 mb-4" key={index} style={{ marginRight: "1px" }}>
+              <div
+                className="card"
+                style={{
+                  transition: "box-shadow 0.3s ease, transform 0.3s ease",
+                  boxShadow: "0 8px 16px rgba(128, 0, 128, 0.5)", // Default shadow
+                  borderRadius: "15px", // Rounded corners
+                  overflow: "hidden", // Ensure rounded corners are applied to the content
+                  cursor: "pointer",
+                  width: "300px", // Increased width
+                  height: "400px", // Increased height
+                  display: "flex", // Flexbox for card layout
+                  flexDirection: "column", // Arrange children in a column
+                  justifyContent: "space-between", // Space out children
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow =
+                    "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"; // Shadow on hover
+                  e.currentTarget.style.transform = "scale(1.02)"; // Slight scale on hover
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow =
+                    "0 8px 16px rgba(128, 0, 128, 0.5)"; // Reset shadow
+                  e.currentTarget.style.transform = "scale(1)"; // Reset scale
+                }}
+                onMouseDown={(e) => {
+                  e.currentTarget.style.boxShadow =
+                    "0 4px 8px rgba(0, 128, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.7)"; // Shadow when clicked
+                  e.currentTarget.style.transform = "scale(0.98)"; // Scale down on click
+                }}
+                onMouseUp={(e) => {
+                  e.currentTarget.style.boxShadow =
+                    "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"; // Shadow on hover after click
+                  e.currentTarget.style.transform = "scale(1.02)"; // Scale up back
+                }}
+              >
+                <img
+                  className="card-img-top"
+                  src="https://via.placeholder.com/350x200"
+                  alt={`Asset ${index + 1}`}
+                  style={{ borderTopLeftRadius: "15px", borderTopRightRadius: "15px" }} // Rounded corners for the image
+                />
+                <div className="card-body">
+                  <h5 className="card-title">Asset {index + 1}</h5>
+                  <p className="card-text">
+                    This is a brief description of Asset {index + 1}. It's a unique digital asset.
+                  </p>
+                  <p className="card-text">
+                    <small className="text-muted" style={{ color: isTokenized ? 'green' : 'red' }}>
+                      Status: {isTokenized ? 'Tokenized' : 'Not Tokenized'}
+                    </small>
+                  </p>
+                  {isTokenized && (
+                    <>
+                      <p className="card-text" style={{ color: 'orange' }}>
+                        <small>Number of Days Left: {daysLeft}</small>
+                      </p>
+                      <p className="card-text" style={{ color: 'orange' }}>
+                        <small>Tokens Left: {tokensLeft}</small>
+                      </p>
+                    </>
+                  )}
+                </div>
+                <div className="d-flex justify-content-between align-items-center mt-auto" style={{ padding: "0 1rem 1rem" }}>
+                  {isTokenized ? (
+                    <button className="btn btn-primary">Mint</button>
+                  ) : (
+                    <button className="btn btn-secondary">Tokenize</button>
+                  )}
+                </div>
               </div>
             </div>
           );
-        
+        })}
+      </div>
+      <div className="text-center"> {/* Centering the button */}
+        <button
+          type="button"
+          className="btn custom-gradient-btn mt-4" // Custom class for gradient
+          onClick={() => navigate("addItem")}
+        >
+          Add Item
+        </button>
+      </div>
+    </div>
+  );
+
         
 
       default:
@@ -261,7 +266,7 @@ function App() {
                 Home
               </a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a
                 className="nav-link"
                 href="#tokenize"
@@ -269,7 +274,7 @@ function App() {
               >
                 Tokenize Asset
               </a>
-            </li>
+            </li> */}
             <li className="nav-item">
               <a
                 className="nav-link"
