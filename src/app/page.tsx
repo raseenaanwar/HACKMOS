@@ -296,90 +296,112 @@ const App: React.FC = () => {
         )
 
         case "assets":
-          return (
-            <div style={{ width: "100vw", padding: "0", height: "100vh" }}>
-              <h2 className="mt-4 mb-3">Your Assets</h2>
-              <div className="row flex-nowrap overflow-auto">
-                {items.map((item, index) => (
-                  <div
-                    className="col-lg-3 col-md-4 mb-4"
-                    key={item.id || index}
-                    style={{ marginRight: "1px" }}
-                  >
-                    <div
-                      className="card"
-                      style={{
-                        transition: "box-shadow 0.3s ease, transform 0.3s ease",
-                        boxShadow: "0 8px 16px rgba(128, 0, 128, 0.5)",
-                        borderRadius: "15px",
-                        overflow: "hidden",
-                        cursor: "pointer",
-                        width: "300px",
-                        height: "450px",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow =
-                          "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"
-                        e.currentTarget.style.transform = "scale(1.02)"
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow =
-                          "0 8px 16px rgba(128, 0, 128, 0.5)"
-                        e.currentTarget.style.transform = "scale(1)"
-                      }}
-                      onMouseDown={(e) => {
-                        e.currentTarget.style.boxShadow =
-                          "0 4px 8px rgba(0, 128, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.7)"
-                        e.currentTarget.style.transform = "scale(0.98)"
-                      }}
-                      onMouseUp={(e) => {
-                        e.currentTarget.style.boxShadow =
-                          "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"
-                        e.currentTarget.style.transform = "scale(1.02)"
-                      }}
-                    >
-                      <img src={item.image} alt={item.name} className="card-img-top" 
-                      style={{ height: "200px", objectFit: "cover" ,objectPosition: "top",}} />
-                      <div className="card-body">
-                        <h5 className="card-title">{item.name}</h5>
-                        <p className="card-text">{item.description}</p>
-                        {item.tokenBalance !== undefined && (
-                          <p className="card-text">
-                            <strong>Token Balance:</strong> {item.tokenBalance}
-                          </p>
-                        )}
-                        {item.expiry !== undefined && (
-                          <p className="card-text">
-                            <strong>Expiry:</strong> {item.expiry} days
-                          </p>
-                        )}
-                        {item.type === "token" ? (
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={RemintNFT}
-                          >
-                            Remint
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={TokenizeNFT}
-                          >
-                            Tokenize
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+  return (
+    <div style={{ width: "100vw", padding: "0", height: "100vh" }}>
+      <h2 className="mt-4 mb-3">Your Assets</h2>
+      <div className="row flex-nowrap overflow-auto">
+        {items.map((item, index) => (
+          <div
+            className="col-lg-3 col-md-4 mb-4"
+            key={item.id || index}
+            style={{ marginRight: "1px" }}
+          >
+            <div
+              className="card"
+              style={{
+                transition: "box-shadow 0.3s ease, transform 0.3s ease",
+                boxShadow: "0 8px 16px rgba(128, 0, 128, 0.5)",
+                borderRadius: "15px",
+                overflow: "hidden",
+                cursor: "pointer",
+                width: "300px",
+                height: "450px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow =
+                  "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)";
+                e.currentTarget.style.transform = "scale(1.02)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow =
+                  "0 8px 16px rgba(128, 0, 128, 0.5)";
+                e.currentTarget.style.transform = "scale(1)";
+              }}
+              onMouseDown={(e) => {
+                e.currentTarget.style.boxShadow =
+                  "0 4px 8px rgba(0, 128, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.7)";
+                e.currentTarget.style.transform = "scale(0.98)";
+              }}
+              onMouseUp={(e) => {
+                e.currentTarget.style.boxShadow =
+                  "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)";
+                e.currentTarget.style.transform = "scale(1.02)";
+              }}
+            >
+              <img
+                src={item.image}
+                alt={item.name}
+                className="card-img-top"
+                style={{ height: "200px", objectFit: "cover", objectPosition: "top" }}
+              />
+              <div className="card-body" style={{ flex: "1" }}>
+                <h5 className="card-title">{item.name}</h5>
+                <p className="card-text">{item.description}</p>
+                {item.tokenBalance !== undefined && (
+                  <p className="card-text">
+                    <strong>Token Balance:</strong> {item.tokenBalance}
+                  </p>
+                )}
+                {item.expiry !== undefined && (
+                  <p className="card-text">
+                    <strong>Expiry:</strong> {item.expiry} days
+                  </p>
+                )}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "10px",
+                  marginTop: "auto", // Ensures button is at bottom
+                }}
+              >
+                {item.type === "token" ? (
+  <Button
+    variant="contained"
+    onClick={RemintNFT}
+    style={{
+      width: "90%",
+      background: "linear-gradient(45deg, #FF69B4, #8A2BE2)", // Pink to Purple gradient
+      color: "#fff",
+    }}
+  >
+    Remint
+  </Button>
+) : (
+  <Button
+    variant="contained"
+    onClick={TokenizeNFT}
+    style={{
+      width: "90%",
+      background: "linear-gradient(45deg, #FF69B4, #8A2BE2)", // Pink to Purple gradient
+      color: "#fff",
+    }}
+  >
+    Tokenize
+  </Button>
+)}
+
               </div>
             </div>
-          )
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
         
       default:
         return null
