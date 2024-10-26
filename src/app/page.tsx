@@ -272,22 +272,7 @@ const App: React.FC = () => {
     switch (page) {
       case "home":
         return <HomeComponent />
-      // return (
-      //   <div className="card">
-      //     <div className="card-header">Home</div>
-      //     <div className="card-body">
-      //       <h5 className="card-title">Welcome to RWA Launchpad</h5>
-      //       <p className="card-text">
-      //         Tokenize your real-world assets such as Real Estate, Art, and
-      //         Commodities.
-      //       </p>
-      //       <button className="btn btn-primary" onClick={() => navigate("tokenize")}>
-      //         Tokenize Now
-      //       </button>
-      //     </div>
-      //   </div>
-      // );
-
+      
       case "tokenize":
         return (
           <div className="card">
@@ -356,7 +341,8 @@ const App: React.FC = () => {
                         e.currentTarget.style.transform = "scale(1.02)"
                       }}
                     >
-                      <img src={item.image} alt={item.name} className="card-img-top" style={{ height: "200px", objectFit: "cover" }} />
+                      <img src={item.image} alt={item.name} className="card-img-top" 
+                      style={{ height: "200px", objectFit: "cover" ,objectPosition: "top",}} />
                       <div className="card-body">
                         <h5 className="card-title">{item.name}</h5>
                         <p className="card-text">{item.description}</p>
