@@ -101,3 +101,16 @@
   padding-right: 0;
 }
 
+.custom-gradient-btn {
+  background: linear-gradient(90deg, #9b59b6, #e91e63); /* Gradient from purple to pink */
+  border: none; /* Remove default border */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Add padding for better appearance */
+  font-size: 1.2em; /* Adjust font size if needed */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background 0.3s; /* Smooth transition for background */
+}
+
+.custom-gradient-btn:hover {
+  background: linear-gradient(90deg, #8e44ad, #d5006d); /* Darker gradient on hover */
+}
