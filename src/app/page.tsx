@@ -23,6 +23,9 @@ interface Item {
   name: string
   description: string
   image: string
+  type: string
+  tokenBalance?: number
+  expiry?: number
 }
 
 const App: React.FC = () => {
@@ -289,111 +292,90 @@ const App: React.FC = () => {
 
       case "assets":
         return (
-          <div style={{ width: "100vw", padding: "0" }}>
+          <div style={{ width: "100vw", padding: "0", height: "100vh" }}>
             <h2 className="mt-4 mb-3">Your Assets</h2>
             <div className="row flex-nowrap overflow-auto">
-              {Array.from({ length: 4 }, (_, index) => {
-                const isTokenized = index % 2 === 0 // Example condition: Even index = tokenized, Odd index = not tokenized
-                const daysLeft = isTokenized ? 10 : 0 // Example days left if tokenized
-
-                return (
+              {items.map((item, index) => (
+                <div
+                  className="col-lg-3 col-md-4 mb-4"
+                  key={item.id || index}
+                  style={{ marginRight: "1px" }}
+                >
                   <div
-                    className="col-lg-3 col-md-4 mb-4"
-                    key={index}
-                    style={{ marginRight: "1px" }}
+                    className="card"
+                    style={{
+                      transition: "box-shadow 0.3s ease, transform 0.3s ease",
+                      boxShadow: "0 8px 16px rgba(128, 0, 128, 0.5)",
+                      borderRadius: "15px",
+                      overflow: "hidden",
+                      cursor: "pointer",
+                      width: "300px",
+                      height: "400px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow =
+                        "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"
+                      e.currentTarget.style.transform = "scale(1.02)"
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow =
+                        "0 8px 16px rgba(128, 0, 128, 0.5)"
+                      e.currentTarget.style.transform = "scale(1)"
+                    }}
+                    onMouseDown={(e) => {
+                      e.currentTarget.style.boxShadow =
+                        "0 4px 8px rgba(0, 128, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.7)"
+                      e.currentTarget.style.transform = "scale(0.98)"
+                    }}
+                    onMouseUp={(e) => {
+                      e.currentTarget.style.boxShadow =
+                        "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)"
+                      e.currentTarget.style.transform = "scale(1.02)"
+                    }}
                   >
-                    <div
-                      className="card"
+                    <img
+                      className="card-img-top"
+                      src={item.image || "https://via.placeholder.com/350x200"}
+                      alt={item.name}
                       style={{
-                        transition: "box-shadow 0.3s ease, transform 0.3s ease",
-                        boxShadow: "0 8px 16px rgba(128, 0, 128, 0.5)", // Default shadow
-                        borderRadius: "15px", // Rounded corners
-                        overflow: "hidden", // Ensure rounded corners are applied to the content
-                        cursor: "pointer",
-                        width: "300px", // Increased width
-                        height: "400px", // Increased height
-                        display: "flex", // Flexbox for card layout
-                        flexDirection: "column", // Arrange children in a column
-                        justifyContent: "space-between", // Space out children
+                        borderTopLeftRadius: "15px",
+                        borderTopRightRadius: "15px",
+                        height: "60%",
                       }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow =
-                          "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)" // Shadow on hover
-                        e.currentTarget.style.transform = "scale(1.02)" // Slight scale on hover
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow =
-                          "0 8px 16px rgba(128, 0, 128, 0.5)" // Reset shadow
-                        e.currentTarget.style.transform = "scale(1)" // Reset scale
-                      }}
-                      onMouseDown={(e) => {
-                        e.currentTarget.style.boxShadow =
-                          "0 4px 8px rgba(0, 128, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.7)" // Shadow when clicked
-                        e.currentTarget.style.transform = "scale(0.98)" // Scale down on click
-                      }}
-                      onMouseUp={(e) => {
-                        e.currentTarget.style.boxShadow =
-                          "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)" // Shadow on hover after click
-                        e.currentTarget.style.transform = "scale(1.02)" // Scale up back
-                      }}
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{item.name}</h5>
+                      <p className="card-text">{item.description}</p>
+                      <p className="card-text">
+                        <small
+                          className="text-muted"
+                          style={{ color: "green" }}
+                        >
+                          Asset ID: {item.id}
+                        </small>
+                      </p>
+                    </div>
+                    <div
+                      className="d-flex justify-content-between align-items-center mt-auto"
+                      style={{ padding: "0 1rem 1rem" }}
                     >
-                      <img
-                        className="card-img-top"
-                        src="https://via.placeholder.com/350x200"
-                        alt={`Asset ${index + 1}`}
-                        style={{
-                          borderTopLeftRadius: "15px",
-                          borderTopRightRadius: "15px",
-                        }} // Rounded corners for the image
-                      />
-                      <div className="card-body">
-                        <h5 className="card-title">Asset {index + 1}</h5>
-                        <p className="card-text">
-                          This is a brief description of Asset {index + 1}. It's
-                          a unique digital asset.
-                        </p>
-                        <p className="card-text">
-                          <small
-                            className="text-muted"
-                            style={{ color: isTokenized ? "green" : "red" }}
-                          >
-                            Status:{" "}
-                            {isTokenized ? "Tokenized" : "Not Tokenized"}
-                          </small>
-                        </p>
-                        {isTokenized && (
-                          <p className="card-text" style={{ color: "orange" }}>
-                            <small>Number of Days Left: {daysLeft}</small>
-                          </p>
-                        )}
-                      </div>
-                      <div
-                        className="d-flex justify-content-between align-items-center mt-auto"
-                        style={{ padding: "0 1rem 1rem" }}
-                      >
-                        {isTokenized ? (
-                          <button className="btn btn-primary">Mint</button>
-                        ) : (
-                          <button className="btn btn-secondary">
-                            Tokenize
-                          </button>
-                        )}
-                        <button className="btn btn-outline-info">
-                          View Details
-                        </button>{" "}
-                        {/* Optional additional button */}
-                      </div>
+                      {item.type === "nft" ? (
+                        <button className="btn btn-primary">Tokenize</button>
+                      ) : (
+                        <button className="btn btn-primary">Remint</button>
+                      )}
                     </div>
                   </div>
-                )
-              })}
+                </div>
+              ))}
             </div>
             <div className="text-center">
-              {" "}
-              {/* Centering the button */}
               <button
                 type="button"
-                className="btn custom-gradient-btn mt-4" // Custom class for gradient
+                className="btn custom-gradient-btn mt-4"
                 onClick={() => navigate("addItem")}
               >
                 Add Item
@@ -401,7 +383,6 @@ const App: React.FC = () => {
             </div>
           </div>
         )
-
       default:
         return null
     }
