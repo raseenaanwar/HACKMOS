@@ -18,13 +18,11 @@ import "bootstrap/dist/css/bootstrap.min.css"
 declare let window: WalletWindow
 
 interface Item {
+  category: string
   id: string
-  nftId: string
   name: string
-  metadata: {
-    description: string
-    image: string
-  }
+  description: string
+  image: string
 }
 
 const App: React.FC = () => {
@@ -42,7 +40,7 @@ const App: React.FC = () => {
   }
 
   // Replace with your local node's chain ID and RPC endpoint
-  const chainId = "mantra-localchain-1" // Replace with your local chain ID
+  const chainId = "mantra-localchain-2" // Replace with your local chain ID
   const rpcEndpoint = "http://localhost:26657" // Local node's RPC endpoint
 
   const connectWallet = async () => {
@@ -57,12 +55,12 @@ const App: React.FC = () => {
           coinType: 118,
         },
         bech32Config: {
-          bech32PrefixAccAddr: "mantrachain",
-          bech32PrefixAccPub: "mantrachainpub",
-          bech32PrefixValAddr: "mantrachainvaloper",
-          bech32PrefixValPub: "mantrachainvaloperpub",
-          bech32PrefixConsAddr: "mantrachainvalcons",
-          bech32PrefixConsPub: "mantrachainvalconspub",
+          bech32PrefixAccAddr: "mantra",
+          bech32PrefixAccPub: "mantrapub",
+          bech32PrefixValAddr: "mantravaloper",
+          bech32PrefixValPub: "mantravaloperpub",
+          bech32PrefixConsAddr: "mantravalcons",
+          bech32PrefixConsPub: "mantravalconspub",
         },
         currencies: [
           {
@@ -100,6 +98,7 @@ const App: React.FC = () => {
         }
       )
       setClient(client)
+      setIsConnected(true)
       toast("Connected!")
     } catch (err) {
       //   toast("Failed to connect!")
@@ -108,25 +107,118 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    fetchAssets()
     navigate("home")
   }, [])
 
-  const fetchAssets = async () => {
+  useEffect(() => {
+    if (isConnected) {
+      fetchNFTs()
+      fetchTokens()
+    }
+  }, [isConnected])
+
+  const fetchNFTs = async () => {
     try {
-      const qclient = await cosmos.ClientFactory.createLCDClient({
-        restEndpoint: "http://localhost:1317",
+      const qclient = await cosmos.ClientFactory.createRPCQueryClient({
+        rpcEndpoint: "http://localhost:26657",
       })
+
       const result = await qclient.cosmos.nft.v1beta1.nFTs({
         owner: address!,
         classId: "Real_Estate",
       })
-      console.log(result)
-      //   setItems(result.event)
+
+      const nftItems = result.nfts.map((nft) => {
+        const rawString = new TextDecoder().decode(nft.data?.value!)
+
+        const fields = rawString.split(/\f/)
+
+        const name = fields[1]?.trim()
+        const combined = fields[2]?.trim()
+
+        const cleanedCombined = combined
+          ? combined.replace(/[\x12\f]+/g, "")
+          : null
+
+        const [description, image] = cleanedCombined
+          ? cleanedCombined.split(/\x1A\?/).map((field) => field.trim())
+          : [null, null]
+
+        return {
+          name,
+          id: nft.id,
+          category: nft.classId,
+          image: image || "",
+          description: description || "",
+          type: "nft",
+        }
+      })
+
+      setItems((prevItems) => [...prevItems, ...nftItems])
+
       // assertIsBroadcastTxSuccess(result);
     } catch (err) {
       console.error(err)
     }
+  }
+
+  const fetchNFT = async (category: string, id: string) => {
+    const qclient = await cosmos.ClientFactory.createRPCQueryClient({
+      rpcEndpoint: "http://localhost:26657",
+    })
+
+    const { nft } = await qclient.cosmos.nft.v1beta1.nFT({
+      id,
+      classId: category,
+    })
+
+    if (nft) {
+      const rawString = new TextDecoder().decode(nft.data?.value)
+
+      const fields = rawString.split(/\f/)
+
+      const name = fields[1]?.trim()
+      const combined = fields[2]?.trim()
+
+      const cleanedCombined = combined
+        ? combined.replace(/[\x12\f]+/g, "")
+        : null
+
+      const [description, image] = cleanedCombined
+        ? cleanedCombined.split(/\x1A\?/).map((field) => field.trim())
+        : [null, null]
+
+      return {
+        name,
+        id: nft.id,
+        category: nft.classId,
+        image: image || "",
+        description: description || "",
+        type: "token",
+      }
+    }
+  }
+
+  const fetchTokens = async () => {
+    const qclient = await cosmos.ClientFactory.createLCDClient({
+      restEndpoint: "http://localhost:1317",
+    })
+
+    const { balances } = await qclient.cosmos.bank.v1beta1.allBalances({
+      address: address!,
+    })
+
+    const tokens = balances.filter((token) => token.denom != "uom")
+
+    const tokenItems: Item[] = []
+    for (const token of tokens) {
+      const [_, category, id] = token.denom.split("-")
+      const res = await fetchNFT(category, id)
+      if (res) {
+        tokenItems.push(res)
+      }
+    }
+    setItems((prevItems) => [...prevItems, ...tokenItems])
   }
 
   const AddAsset = async () => {}
