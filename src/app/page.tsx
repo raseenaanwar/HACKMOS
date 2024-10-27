@@ -48,6 +48,23 @@ const App: React.FC = () => {
       expiry: 30 // Expiry in days
     },
     
+
+    {
+      category: "Renewable Energy Assets",
+      id: "7",
+      name: "Wind Turbine",
+      description: "A device that converts wind's kinetic energy into electrical power.",
+      image: "https://miro.medium.com/v2/resize:fit:1400/1*pvT6DZFwNsjgWuGFglpO2w.png",
+      type: "nft",
+    },
+    {
+      category: "Agricultural Assets",
+      id: "8",
+      name: "Farmland Lease",
+      description: "A contract allowing farmers to use the land for cultivation for a specified period, ensuring mutual benefit and sustainable practices.",
+      image: "https://assets.isu.pub/document-structure/230211065358-42cae78b997f657f3d0a932f4475cfed/v1/bbecf0660491378a3b9e6fd18625fbfa.jpeg",
+      type: "nft",
+    },
     {
       category: "Financial Assets",
       id: "3",
@@ -71,15 +88,6 @@ const App: React.FC = () => {
       tokenBalance: 15,
       expiry: 365 // Expiry in days
     },
-
-    {
-      category: "Renewable Energy Assets",
-      id: "7",
-      name: "Wind Turbine",
-      description: "A device that converts wind's kinetic energy into electrical power.",
-      image: "https://miro.medium.com/v2/resize:fit:1400/1*pvT6DZFwNsjgWuGFglpO2w.png",
-      type: "nft",
-    }
 
   ]) // State to hold the items
 
