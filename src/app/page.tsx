@@ -55,7 +55,9 @@ const App: React.FC = () => {
       name: "Wind Turbine",
       description: "A device that converts wind's kinetic energy into electrical power.",
       image: "https://miro.medium.com/v2/resize:fit:1400/1*pvT6DZFwNsjgWuGFglpO2w.png",
-      type: "nft",
+      type: "token",
+      tokenBalance: 10,
+      expiry:60 , // No expiration for stocks
     },
     {
       category: "Agricultural Assets",
