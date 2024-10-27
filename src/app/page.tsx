@@ -43,7 +43,7 @@ const App: React.FC = () => {
       name: "Oceanview Apartment",
       description: "A beautiful oceanfront apartment with a breathtaking view.",
       image: "https://upload.wikimedia.org/wikipedia/en/thumb/9/93/Burj_Khalifa.jpg/1200px-Burj_Khalifa.jpg",
-      type: "token",
+      type: "nft",
       tokenBalance: 10,
       expiry: 30 // Expiry in days
     },
@@ -59,6 +59,8 @@ const App: React.FC = () => {
       expiry:60 , // No expiration for stocks
       
     },
+
+    
     {
       category: "Intellectual Property",
       id: "3",
@@ -69,6 +71,15 @@ const App: React.FC = () => {
       tokenBalance: 15,
       expiry: 365 // Expiry in days
     },
+
+    {
+      category: "Renewable Energy Assets",
+      id: "7",
+      name: "Wind Turbine",
+      description: "A device that converts wind's kinetic energy into electrical power.",
+      image: "https://miro.medium.com/v2/resize:fit:1400/1*pvT6DZFwNsjgWuGFglpO2w.png",
+      type: "nft",
+    }
 
   ]) // State to hold the items
 
@@ -312,7 +323,8 @@ const App: React.FC = () => {
         case "assets":
   return (
     <div style={{ width: "100vw", padding: "0", height: "100vh" }}>
-      <h2 className="mt-4 mb-3">Your Assets</h2>
+      <h2 className="mt-4 mb-3" style={{ textAlign: "center", color: "#C71585", marginTop: "20px", marginBottom: "40px" }}>Your Assets</h2>
+
       <div className="row flex-nowrap overflow-auto">
         {items.map((item, index) => (
           <div
@@ -363,51 +375,57 @@ const App: React.FC = () => {
               <div className="card-body" style={{ flex: "1" }}>
                 <h5 className="card-title">{item.name}</h5>
                 <p className="card-text">{item.description}</p>
-                {item.tokenBalance !== undefined && (
-                  <p className="card-text">
-                    <strong>Token Balance:</strong> {item.tokenBalance}
-                  </p>
-                )}
-                {item.expiry !== undefined && (
-                  <p className="card-text">
-                    <strong>Expiry:</strong> {item.expiry} days
-                  </p>
+
+                {/* Conditional rendering for token-specific details */}
+                {item.type === "token" && (
+                  <>
+                    {item.tokenBalance !== undefined && (
+                      <p className="card-text">
+                        <strong>Token Balance:</strong> {item.tokenBalance}
+                      </p>
+                    )}
+                    {item.expiry !== undefined && (
+                      <p className="card-text">
+                        <strong>Expiry:</strong> {item.expiry} days
+                      </p>
+                    )}
+                  </>
                 )}
               </div>
+
               <div
                 style={{
                   display: "flex",
                   justifyContent: "center",
                   padding: "10px",
-                  marginTop: "auto", // Ensures button is at bottom
+                  marginTop: "auto",
                 }}
               >
                 {item.type === "token" ? (
-  <Button
-    variant="contained"
-    onClick={RemintNFT}
-    style={{
-      width: "90%",
-      background: "linear-gradient(45deg, #FF69B4, #8A2BE2)", // Pink to Purple gradient
-      color: "#fff",
-    }}
-  >
-    Remint
-  </Button>
-) : (
-  <Button
-    variant="contained"
-    onClick={TokenizeNFT}
-    style={{
-      width: "90%",
-      background: "linear-gradient(45deg, #FF69B4, #8A2BE2)", // Pink to Purple gradient
-      color: "#fff",
-    }}
-  >
-    Tokenize
-  </Button>
-)}
-
+                  <Button
+                    variant="contained"
+                    onClick={RemintNFT}
+                    style={{
+                      width: "90%",
+                      background: "linear-gradient(45deg, #FF69B4, #8A2BE2)", // Pink to Purple gradient
+                      color: "#fff",
+                    }}
+                  >
+                    Remint
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    onClick={TokenizeNFT}
+                    style={{
+                      width: "90%",
+                      background: "linear-gradient(45deg, #FF69B4, #8A2BE2)", // Pink to Purple gradient
+                      color: "#fff",
+                    }}
+                  >
+                    Tokenize
+                  </Button>
+                )}
               </div>
             </div>
           </div>
@@ -415,6 +433,116 @@ const App: React.FC = () => {
       </div>
     </div>
   );
+
+//         case "assets":
+//   return (
+//     <div style={{ width: "100vw", padding: "0", height: "100vh" }}>
+//    <h2 className="mt-4 mb-3" style={{ textAlign: "center", color: "#C71585", marginTop: "20px", marginBottom: "40px" }}>Your Assets</h2>
+
+
+
+//       <div className="row flex-nowrap overflow-auto">
+//         {items.map((item, index) => (
+//           <div
+//             className="col-lg-3 col-md-4 mb-4"
+//             key={item.id || index}
+//             style={{ marginRight: "1px" }}
+//           >
+//             <div
+//               className="card"
+//               style={{
+//                 transition: "box-shadow 0.3s ease, transform 0.3s ease",
+//                 boxShadow: "0 8px 16px rgba(128, 0, 128, 0.5)",
+//                 borderRadius: "15px",
+//                 overflow: "hidden",
+//                 cursor: "pointer",
+//                 width: "300px",
+//                 height: "500px",
+//                 display: "flex",
+//                 flexDirection: "column",
+//               }}
+//               onMouseEnter={(e) => {
+//                 e.currentTarget.style.boxShadow =
+//                   "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)";
+//                 e.currentTarget.style.transform = "scale(1.02)";
+//               }}
+//               onMouseLeave={(e) => {
+//                 e.currentTarget.style.boxShadow =
+//                   "0 8px 16px rgba(128, 0, 128, 0.5)";
+//                 e.currentTarget.style.transform = "scale(1)";
+//               }}
+//               onMouseDown={(e) => {
+//                 e.currentTarget.style.boxShadow =
+//                   "0 4px 8px rgba(0, 128, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.7)";
+//                 e.currentTarget.style.transform = "scale(0.98)";
+//               }}
+//               onMouseUp={(e) => {
+//                 e.currentTarget.style.boxShadow =
+//                   "0 12px 24px rgba(128, 0, 128, 0.7), 0 0 20px rgba(255, 0, 255, 0.5)";
+//                 e.currentTarget.style.transform = "scale(1.02)";
+//               }}
+//             >
+//               <img
+//                 src={item.image}
+//                 alt={item.name}
+//                 className="card-img-top"
+//                 style={{ height: "200px", objectFit: "cover", objectPosition: "top" }}
+//               />
+//               <div className="card-body" style={{ flex: "1" }}>
+//                 <h5 className="card-title">{item.name}</h5>
+//                 <p className="card-text">{item.description}</p>
+//                 {item.tokenBalance !== undefined && (
+//                   <p className="card-text">
+//                     <strong>Token Balance:</strong> {item.tokenBalance}
+//                   </p>
+//                 )}
+//                 {item.expiry !== undefined && (
+//                   <p className="card-text">
+//                     <strong>Expiry:</strong> {item.expiry} days
+//                   </p>
+//                 )}
+//               </div>
+//               <div
+//                 style={{
+//                   display: "flex",
+//                   justifyContent: "center",
+//                   padding: "10px",
+//                   marginTop: "auto", // Ensures button is at bottom
+//                 }}
+//               >
+//                 {item.type === "token" ? (
+//   <Button
+//     variant="contained"
+//     onClick={RemintNFT}
+//     style={{
+//       width: "90%",
+//       background: "linear-gradient(45deg, #FF69B4, #8A2BE2)", // Pink to Purple gradient
+//       color: "#fff",
+//     }}
+//   >
+//     Remint
+//   </Button>
+// ) : (
+//   <Button
+//     variant="contained"
+//     onClick={TokenizeNFT}
+//     style={{
+//       width: "90%",
+//       background: "linear-gradient(45deg, #FF69B4, #8A2BE2)", // Pink to Purple gradient
+//       color: "#fff",
+//     }}
+//   >
+//     Tokenize
+//   </Button>
+// )}
+
+//               </div>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
 
         
       default:
